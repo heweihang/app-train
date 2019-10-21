@@ -40,7 +40,9 @@ public class UserController {
 
     @RequestMapping("/index")
     @ResponseBody
-    public ModelAndView findTrainUser(int userId,int menuId){
+    public ModelAndView findTrainUser(){
+        int userId=1;
+        int menuId=1;
         long user_id = Long.parseLong(userId +"");
         long menu_id = Long.parseLong(menuId + "");
         TrainUser trainUser = trainUserService.findTrainUser(user_id);
