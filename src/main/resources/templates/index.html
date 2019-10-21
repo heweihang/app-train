@@ -129,23 +129,58 @@ body {
         var localhostPath = currentPagepath.substring(0,pos);//http://192.168.0.102:8080
         //E:\path\image\u=3565682627,2876030475&fm=26&gp=0.jpg
         var strings_one = typeOneValueUrl.split("/");
+        var fileName_one= strings_one[strings_one.length-1];
+        var suffixType_one = fileName_one.substring(fileName_one.length-3,fileName_one.length).toLocaleUpperCase();//后缀类型
         var strings_two = typeTwoValueUrl.split("/");
+        var fileName_two= strings_two[strings_two.length-1];
+        var suffixType_two= fileName_two.substring(fileName_two.length-3,fileName_two.length).toLocaleUpperCase();//后缀类型
         var resource_one_path=localhostPath+"/resource/"+strings_one[strings_one.length-1];
         var resource_two_path=localhostPath+"/resource/"+strings_two[strings_two.length-1];
         //console.log("resource_one_path"+resource_one_path);
+        var videos =new Array();
+        videos[0]="AVI";
+        videos[1]="RMVB";
+        videos[2]="RM";
+        videos[3]="ASF";
+        videos[4]="WMV";
+        videos[5]="MP4";
+        videos[6]="OGG";
+        videos[7]="MKV";
+        videos[8]="MPEG";
         if(typeOneValue == 1){
-			one.innerHTML=" <img  id='oneImg'   style='width:100%;' alt='图片' />";
-            document.getElementById('oneImg').setAttribute("src",resource_one_path);
+            if(videos.indexOf(suffixType_one) > -1){//包含  视频展示
+                one.innerHTML=" <video  style='width:100%;' controls='controls'><source id='oneVideo'  type='video/mp4'></video>"
+                document.getElementById('oneVideo').setAttribute("src",resource_one_path);
+            }else{//不包含是图片展示
+                one.innerHTML=" <img  id='oneImg'   style='width:100%;' alt='图片' />";
+                document.getElementById('oneImg').setAttribute("src",resource_one_path);
+            }
 		}else{
-			one.innerHTML=" <video  style='width:100%;' controls='controls'><source id='oneVideo'  type='video/mp4'></video>"
-            document.getElementById('oneVideo').setAttribute("src",resource_one_path);
+            if(videos.indexOf(suffixType_one) > -1){//包含  视频展示
+                one.innerHTML=" <video  style='width:100%;' controls='controls'><source id='oneVideo'  type='video/mp4'></video>"
+                document.getElementById('oneVideo').setAttribute("src",resource_one_path);
+            }else{//不包含是图片展示
+                one.innerHTML=" <img  id='oneImg'   style='width:100%;' alt='图片' />";
+                document.getElementById('oneImg').setAttribute("src",resource_one_path);
+            }
 		}
 		 if(typeTwoValue == 1){
-			two.innerHTML=" <img  id='twoImg'   style='width:100%;' alt='图片' />";
-             document.getElementById('oneImg').setAttribute("src",typeTwoValueUrl);
+             if(videos.indexOf(suffixType_two) > -1){//包含  视频展示
+                 two.innerHTML=" <video  style='width:100%;'  controls='controls'><source id='twoVideo' type='video/mp4'></video>"
+                 document.getElementById('twoVideo').setAttribute("src",resource_two_path);
+             }else{//不包含是图片展示
+                 two.innerHTML=" <img  id='twoImg'   style='width:100%;' alt='图片' />";
+                 document.getElementById('oneImg').setAttribute("src",resource_two_path);
+             }
+
 		}else{
-			two.innerHTML=" <video  style='width:100%;'  controls='controls'><source id='twoVideo' type='video/mp4'></video>"
-             document.getElementById('twoVideo').setAttribute("src",resource_two_path);
+             if(videos.indexOf(suffixType_two) > -1){//包含  视频展示
+                 two.innerHTML=" <video  style='width:100%;'  controls='controls'><source id='twoVideo' type='video/mp4'></video>"
+                 document.getElementById('twoVideo').setAttribute("src",resource_two_path);
+             }else{//不包含是图片展示
+                 two.innerHTML=" <img  id='twoImg'   style='width:100%;' alt='图片' />";
+                 document.getElementById('oneImg').setAttribute("src",resource_two_path);
+             }
 		}
 
 

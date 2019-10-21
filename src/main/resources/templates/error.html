@@ -21,9 +21,15 @@
 
 <body class="signin">
     Error:验证失败--------------<button onClick="backIndex();">返回首页</button>
+
+    <script type="text/javascript" th:inline="javascript">
+
+        var base = /*[[@{/}]]*/;
+        base=base.substr(0,base.length-1);
+    </script>
 <script>
     function backIndex(){
-       window.location.href = "user/index";
+       window.location.href = base+"/user/index";
     }
 
 </script>

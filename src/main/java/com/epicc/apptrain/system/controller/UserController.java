@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -79,7 +81,10 @@ public class UserController {
     }
 
 
-
+/*    HttpSession session = request.getSession(true);
+    Object loginMark = session.getAttribute("loginMark");
+    ModelAndView modelAndView =null;
+        if(loginMark != null){//不需要登录直接跳转到修改资源页面*/
 
     //修改账户密码
     @RequestMapping("/modifyTrainMenu")
@@ -88,19 +93,21 @@ public class UserController {
                                         String honorNameUrl,String advisorySellNameUrl,
                                         String newBarrcksNameUrl,@RequestParam("file1") MultipartFile file1,
                                         @RequestParam("file2") MultipartFile file2,
-                                        String type1,String type2
+                                        String type1,String type2,HttpServletRequest request
                                         ){
 
-        TrainMenu trainMenu = trainUserService.findTrainMenu(1);
+        HttpSession session = request.getSession(true);
+        Object loginMark = session.getAttribute("loginMark");
+        ModelAndView modelAndView =null;
+        if(loginMark != null) {//可以修改
+            TrainMenu trainMenu = trainUserService.findTrainMenu(1);
             trainMenu.setTrainNameUrl(trainNameUrl);
             trainMenu.setActivityNameUrl(activityNameUrl);
-        trainMenu.setHonorNameUrl(honorNameUrl);
-        trainMenu.setAdvisorySellNameUrl(advisorySellNameUrl);
-        trainMenu.setNewBarrcksNameUrl(newBarrcksNameUrl);
-        Date date = new Date();
-        trainMenu.setCreateTime(date);
-
-
+            trainMenu.setHonorNameUrl(honorNameUrl);
+            trainMenu.setAdvisorySellNameUrl(advisorySellNameUrl);
+            trainMenu.setNewBarrcksNameUrl(newBarrcksNameUrl);
+            Date date = new Date();
+            trainMenu.setCreateTime(date);
 
             //type=1 代表是图片，2代表是视频
             if (!file1.isEmpty()) {
@@ -137,11 +144,14 @@ public class UserController {
 
                 }
             }
-        int i1 = trainUserService.modifyTrainMenu(trainMenu);
+            int i1 = trainUserService.modifyTrainMenu(trainMenu);
             long menu_id = Long.parseLong(1 + "");
             TrainMenu trainMenu_last = trainUserService.findTrainMenu(menu_id);
-            ModelAndView modelAndView = new ModelAndView("index");
+            modelAndView = new ModelAndView("index");
             modelAndView.addObject("trainMenu",trainMenu_last);
+        }else{
+            modelAndView = new ModelAndView("error");
+        }
         return  modelAndView;
 
     }
@@ -216,8 +226,18 @@ public class UserController {
 
     @RequestMapping("/validateName")
     @ResponseBody
-    public ModelAndView validateName(){
-        ModelAndView modelAndView = new ModelAndView("validateName");
+    public ModelAndView validateName(HttpServletRequest request){
+        HttpSession session = request.getSession(true);
+        Object loginMark = session.getAttribute("loginMark");
+        ModelAndView modelAndView =null;
+        if(loginMark != null){//不需要登录直接跳转到修改资源页面
+            long menu_id_value = Long.parseLong(1 + "");
+            TrainMenu trainMenu = trainUserService.findTrainMenu(menu_id_value);
+            modelAndView = new ModelAndView("edit");
+            modelAndView.addObject("trainMenu",trainMenu);
+        }else{
+            modelAndView = new ModelAndView("validateName");
+        }
         return  modelAndView;
     }
 
@@ -240,7 +260,9 @@ public class UserController {
 
     @RequestMapping("/validateEdit")
     @ResponseBody
-    public ModelAndView validateEdit(String menu_id){
+    public ModelAndView validateEdit(HttpServletRequest request, String menu_id){
+        HttpSession session = request.getSession(true);
+        session.setAttribute("loginMark",true);
         ModelAndView modelAndView = null;
         long menu_id_value = Long.parseLong(1 + "");
         TrainMenu trainMenu = trainUserService.findTrainMenu(menu_id_value);
