@@ -3,19 +3,25 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="renderer" content="webkit" />
     <title>账户信息</title>
-    <script type="text/javascript" src="../js/system/jquery-3.4.1.min.js" > </script>
+    <script type="text/javascript" th:src="@{../js/system/jquery-3.4.1.min.js}" > </script>
 </head>
 <body>
 密码验证
-<form id="Form" action="/user/validate" method="get">
+<form id="Form" th：action="@{/user/validate}" method="get">
     <p>密码: <input type="text" name="userPassword" /></p>
 
 </form>
 <!--<input id="inputOne" th:value="${trainMenu.resourceOneType}" style="display:none"></input>-->
 <button onclick="backIndex()">返回首页</button>    <input type="submit" value="Submit" onclick="checkForm()" />
 
+<script type="text/javascript" th:inline="javascript">
 
+    var base = /*[[@{/}]]*/;
+    base=base.substr(0,base.length-1);
+</script>
 <script type="text/javascript">
 
     function backIndex(){
@@ -30,7 +36,7 @@
             $.ajax({
                 type: "POST",
                 dataType: "json",
-                url: "/user/validate",
+                url: base+"/user/validate",
                 data:$("#Form").serialize(),//将表单数据序列化
                 success: function (data) {
                     if(data){
@@ -49,11 +55,11 @@
     }
 
     function validateName(){
-        window.location.href = "/user/validateEdit";
+        window.location.href = base+"/user/validateEdit";
     }
 
     function backIndex(){
-        window.location.href = "/user/index";
+        window.location.href = base+"/user/index";
     }
 
 </script>

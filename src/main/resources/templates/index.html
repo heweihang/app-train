@@ -12,7 +12,8 @@
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
-    <!--<script th:src="@{/js/system/jquery-3.4.1.min.js}"></script>-->
+
+
 
     <style>
 body {
@@ -72,7 +73,7 @@ body {
 
 <div class="header" >PICC
 
-    <a href="#" onClick="validateName();" ><span id="position" >修改</span></a>
+    <a href="javascript:void(0);" onClick="validateName();" ><span id="position" >修改</span></a>
 </div>
 
 <div class="topnav">
@@ -106,33 +107,50 @@ body {
     </if>-->
 </div>
 <!--使用 'window.open()'-->
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
 
+    var base = /*[[@{/}]]*/;
+    base=base.substr(0,base.length-1);
+</script>
+
+<script type="text/javascript">
         var typeOneValue=document.getElementById("inputOne").value;
         var typeTwoValue=document.getElementById("inputTwo").value;
         var typeOneValueUrl=document.getElementById("inputOneUrl").value;
         var typeTwoValueUrl=document.getElementById("inputTwoUrl").value;
         var one=document.getElementById("one")
          var two=document.getElementById("two")
-       console.log(typeOneValueUrl);
+        //http://localhost:8082/user/index
+        //http://localhost/user/index
+        //http://47.102.205.110/resource/
+        var currentPagepath=location.href;
+        var pathName = window.document.location.pathname;// /user/index
+        var pos = currentPagepath.indexOf(pathName);
+        var localhostPath = currentPagepath.substring(0,pos);//http://192.168.0.102:8080
+        //E:\path\image\u=3565682627,2876030475&fm=26&gp=0.jpg
+        var strings_one = typeOneValueUrl.split("/");
+        var strings_two = typeTwoValueUrl.split("/");
+        var resource_one_path=localhostPath+"/resource/"+strings_one[strings_one.length-1];
+        var resource_two_path=localhostPath+"/resource/"+strings_two[strings_two.length-1];
+        //console.log("resource_one_path"+resource_one_path);
         if(typeOneValue == 1){
-			one.innerHTML=" <img  id='oneImg'  alt='图片' />";
-            document.getElementById('oneImg').setAttribute("src",typeOneValueUrl);
+			one.innerHTML=" <img  id='oneImg'   style='width:100%;' alt='图片' />";
+            document.getElementById('oneImg').setAttribute("src",resource_one_path);
 		}else{
-			one.innerHTML=" <video  controls='controls'><source id='oneVideo'  type='video/mp4'></video>"
-            document.getElementById('oneVideo').setAttribute("src",typeOneValueUrl);
+			one.innerHTML=" <video  style='width:100%;' controls='controls'><source id='oneVideo'  type='video/mp4'></video>"
+            document.getElementById('oneVideo').setAttribute("src",resource_one_path);
 		}
 		 if(typeTwoValue == 1){
-			two.innerHTML=" <img  id='twoImg'  alt='图片' />";
+			two.innerHTML=" <img  id='twoImg'   style='width:100%;' alt='图片' />";
              document.getElementById('oneImg').setAttribute("src",typeTwoValueUrl);
 		}else{
-			two.innerHTML=" <video  controls='controls'><source id='twoVideo' type='video/mp4'></video>"
-             document.getElementById('twoVideo').setAttribute("src",typeTwoValueUrl);
+			two.innerHTML=" <video  style='width:100%;'  controls='controls'><source id='twoVideo' type='video/mp4'></video>"
+             document.getElementById('twoVideo').setAttribute("src",resource_two_path);
 		}
 
 
          function validateName(){
-             window.location.href = "/user/validateName";
+             window.location.href = base+"/user/validateName";
         }
 
     </script>
