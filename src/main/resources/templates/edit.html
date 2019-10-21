@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="renderer" content="webkit" />
+    <title>编辑页面</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <!--<script th:src="@{/js/system/jquery-3.4.1.min.js}"></script>-->
+
+    <style>
+body {
+  margin: 0;
+}
+h1{
+text-align: center;
+}
+
+/* 头部样式 */
+.header {
+  background-color: #f1f1f1;
+  padding: 20px;
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* 导航条 */
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+/* 导航链接 */
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* 链接 - 修改颜色 */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+#position{
+	position:absolute;
+	right:2%;
+	top:2%;
+}
+
+.sell{
+
+  display: block;
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+</style>
+</head>
+<body>
+<h1>资源编辑</h1>
+<form method="post" action="/user/modifyTrainMenu"  enctype="multipart/form-data">
+    培训资源地址:<input name="trainNameUrl" th:value="${trainMenu.trainNameUrl}"></input><br/>
+    活动资源地址:<input name="activityNameUrl" th:value="${trainMenu.activityNameUrl}"></input><br/>
+    荣誉资源地址:<input name="honorNameUrl" th:value="${trainMenu.honorNameUrl}"></input><br/>
+    顾问式资源地址:<input name="advisorySellNameUrl" th:value="${trainMenu.advisorySellNameUrl}"></input><br/>
+    新兵营资源地址:<input name="newBarrcksNameUrl" th:value="${trainMenu.newBarrcksNameUrl}"></input><br/>
+   <!-- 音视频资源1地址:<input name="resourceOneUrl" th:value="${trainMenu.resourceOneUrl}"></input><br/>
+    音视频资源2地址:<input name="resourceTwoUrl" th:value="${trainMenu.resourceTwoUrl}"></input><br/>-->
+    操作时间:<input name="createTime" th:value="${trainMenu.createTime}"></input><br/>
+
+    资源1类型<select name="type1">
+    <option value ="1">图片</option>
+    <option value ="2">视频</option>
+</select>
+    <input type="file" name="file1"><br>
+    资源2类型<select name="type2">
+    <option value ="1">图片</option>
+    <option value ="2">视频</option>
+</select>
+    <input type="file" name="file2"><br>
+    <button onclick="backIndex()">返回首页</button>
+    <input type="submit" value="提交">
+</form>
+
+<script type="text/javascript" >
+
+    function backIndex(){
+        window.location.href = "http://localhost:8082/user/index?userId=1&menuId=1";
+    }
+
+</script>
+</body>
+</html>

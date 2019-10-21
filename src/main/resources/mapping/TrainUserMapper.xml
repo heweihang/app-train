@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.epicc.apptrain.system.dao.TrainUserMapper">
+
+    <resultMap id="BaseResultMap" type="com.epicc.apptrain.system.model.TrainUser">
+        <result column="USER_ID" jdbcType="BIGINT" property="userId" />
+        <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+        <result column="USER_PASSWORD" jdbcType="VARCHAR" property="userPassword" />
+        <result column="REGISTER_TIME" jdbcType="DATE" property="regisierTime" />
+    </resultMap>
+
+
+    <resultMap id="trainMenuResultMap" type="com.epicc.apptrain.system.model.TrainMenu">
+        <result column="MENU_ID" jdbcType="BIGINT" property="menuId" />
+        <result column="TRAIN_NAME" jdbcType="VARCHAR" property="trainName" />
+        <result column="TRAIN_NAME_URL" jdbcType="VARCHAR" property="trainNameUrl" />
+        <result column="ACTIVITY_NAME" jdbcType="VARCHAR" property="activityName" />
+        <result column="ACTIVITY_NAME_URL" jdbcType="VARCHAR" property="activityNameUrl" />
+        <result column="HONOR_NAME" jdbcType="VARCHAR" property="honorName" />
+        <result column="HONOR_NAME_URL" jdbcType="VARCHAR" property="honorNameUrl" />
+        <result column="ADVISORY_SELL_NAME" jdbcType="VARCHAR" property="advisorySellName" />
+        <result column="ADVISORY_SELL_NAME_URL" jdbcType="VARCHAR" property="advisorySellNameUrl" />
+        <result column="NEW_BARRACKS_NAME" jdbcType="VARCHAR" property="newBarrcksName" />
+        <result column="NEW_BARRACKS_NAME_URL" jdbcType="VARCHAR" property="newBarrcksNameUrl" />
+        <result column="RESOURCE_ONE_URL" jdbcType="VARCHAR" property="resourceOneUrl" />
+        <result column="RESOURCE_ONE_TYPE" jdbcType="VARCHAR" property="resourceOneType" />
+        <result column="RESOURCE_TWO_URL" jdbcType="VARCHAR" property="resourceTwoUrl" />
+        <result column="RESOURCE_TWO_TYPE" jdbcType="VARCHAR" property="resourceTwoType" />
+        <result column="CREATE_TIME" jdbcType="DATE" property="createTime" />
+    </resultMap>
+
+
+    <!--train_user-->
+
+    <select id="findTrainUserById" resultType="com.epicc.apptrain.system.model.TrainUser" resultMap="BaseResultMap">
+        SELECT * FROM train_user WHERE USER_ID = #{userId}
+    </select>
+
+    <update id="modifyTrainUser" parameterType="com.epicc.apptrain.system.model.TrainUser" >
+		update train_user set USER_NAME=#{userName},USER_PASSWORD=#{userPassword}
+		where USER_ID=#{userId}
+	</update>
+
+    <!--train_menu-->
+
+    <select id="findTrainMenuById" resultType="com.epicc.apptrain.system.model.TrainMenu" resultMap="trainMenuResultMap">
+        SELECT * FROM train_menu WHERE MENU_ID = #{menuId}
+    </select>
+
+
+
+    <update id="modifyTrainMenu" parameterType="com.epicc.apptrain.system.model.TrainMenu" >
+		update train_menu set
+		TRAIN_NAME=#{trainName},
+		TRAIN_NAME_URL=#{trainNameUrl},
+		ACTIVITY_NAME=#{activityName},
+		ACTIVITY_NAME_URL=#{activityNameUrl},
+		HONOR_NAME=#{honorName},
+		HONOR_NAME_URL=#{honorNameUrl},
+		ADVISORY_SELL_NAME=#{advisorySellName},
+		ADVISORY_SELL_NAME_URL=#{advisorySellNameUrl},
+		NEW_BARRACKS_NAME=#{newBarrcksName},
+		NEW_BARRACKS_NAME_URL=#{newBarrcksNameUrl},
+		RESOURCE_ONE_URL=#{resourceOneUrl},
+        RESOURCE_ONE_TYPE=#{resourceOneType},
+		RESOURCE_TWO_URL=#{resourceTwoUrl},
+        RESOURCE_TWO_TYPE=#{resourceTwoType},
+		CREATE_TIME=#{createTime}
+		where MENU_ID=#{menuId}
+	</update>
+
+
+
+</mapper>

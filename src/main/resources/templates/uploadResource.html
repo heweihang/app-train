@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+  <meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title> 增票系统管理平台- 主页</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+</head>
+
+<body class="fixed-sidebar full-height-layout gray-bg">
+<form method="post" action="/user/upload" enctype="multipart/form-data">
+	资源1类型<select name="type1">
+		<option value ="1">图片</option>
+		<option value ="2">视频</option>
+	</select>
+	<input type="file" name="file1"><br>
+	资源2类型<select name="type2">
+	<option value ="1">图片</option>
+	<option value ="2">视频</option>
+</select>
+	<input type="file" name="file2"><br>
+	<input type="submit" value="提交">
+</form>
+</body>
+
+</html>

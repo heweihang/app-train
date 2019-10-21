@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>账户信息</title>
+    <script type="text/javascript" src="../js/system/jquery-3.4.1.min.js" > </script>
+</head>
+<body>
+密码验证
+<form id="Form" action="/user/validate" method="get">
+    <p>密码: <input type="text" name="userPassword" /></p>
+
+</form>
+<!--<input id="inputOne" th:value="${trainMenu.resourceOneType}" style="display:none"></input>-->
+<button onclick="backIndex()">返回首页</button>    <input type="submit" value="Submit" onclick="checkForm()" />
+
+
+<script type="text/javascript">
+
+    function backIndex(){
+        alert("测试");
+    }
+    /*这里是提交表单前的非空校验*/
+    function checkForm() {
+        var first = $("input[name='userPassword']").val();
+        if (first == "" || first == null || first == undefined) {
+            alert("不能为空");
+        }else{
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "/user/validate",
+                data:$("#Form").serialize(),//将表单数据序列化
+                success: function (data) {
+                    if(data){
+                        validateName();
+
+                    }else{
+                        alert("密码不正确");
+                    }
+
+                },
+                error : function() {
+                    alert("操作异常!");
+                }
+            });
+        }
+    }
+
+    function validateName(){
+        window.location.href = "http://localhost:8082/user/validateEdit";
+    }
+
+    function backIndex(){
+        window.location.href = "http://localhost:8082/user/index?userId=1&menuId=1";
+    }
+
+</script>
+
+
+
+
+
+</body>
+</html>

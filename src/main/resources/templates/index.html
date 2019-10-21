@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="renderer" content="webkit" />
+    <title>首页</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <!--<script th:src="@{/js/system/jquery-3.4.1.min.js}"></script>-->
+
+    <style>
+body {
+  margin: 0;
+}
+
+/* 头部样式 */
+.header {
+  background-color: #f1f1f1;
+  padding: 20px;
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* 导航条 */
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+/* 导航链接 */
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* 链接 - 修改颜色 */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+#position{
+	position:absolute;
+	right:2%;
+	top:2%;
+}
+
+.sell{
+
+  display: block;
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+</style>
+
+
+</head>
+
+<div class="header" >PICC
+
+    <a href="#" onClick="validateName();" ><span id="position" >修改</span></a>
+</div>
+
+<div class="topnav">
+    <a th:href="${trainMenu.trainNameUrl}">培训</a>
+    <a th:href="${trainMenu.activityNameUrl}">活动</a>
+    <a th:href="${trainMenu.honorNameUrl}">荣誉</a>
+</div>
+<div class="sell" ><a th:href="${trainMenu.advisorySellNameUrl}" >顾问式行销</a></div>
+<div id="one">
+    <input id="inputOne" th:value="${trainMenu.resourceOneType}" style="display:none"></input>
+    <input id="inputOneUrl" th:value="${trainMenu.resourceOneUrl}" style="display:none"></input>
+    <!--<if condition="${trainMenu.resourceOneType} eq 1">
+        <img th:src="${trainMenu.resourceOneUrl}"  alt="图片" />
+        <else/>
+        <video id="video1" controls="controls">
+            <source th:src="${trainMenu.resourceOneUrl}" type="video/mp4">
+        </video>
+    </if>
+-->
+</div>
+<div class="sell" ><a th:href="${trainMenu.newBarrcksNameUrl}" >新兵营</a></div>
+<div id="two">
+    <input id="inputTwo" th:value="${trainMenu.resourceTwoType}" style="display:none"></input>
+    <input id="inputTwoUrl" th:value="${trainMenu.resourceTwoUrl}" style="display:none"></input>
+   <!-- <if condition="${trainMenu.resourceTwoType} eq 1">
+        <img th:src="${trainMenu.resourceTwoUrl}"  alt="图片" />
+        <else/>
+        <video id="video2" controls="controls">
+            <source th:src="${trainMenu.resourceTwoUrl}" type="video/mp4">
+        </video>
+    </if>-->
+</div>
+<!--使用 'window.open()'-->
+<script type="text/javascript">
+
+        var typeOneValue=document.getElementById("inputOne").value;
+        var typeTwoValue=document.getElementById("inputTwo").value;
+        var typeOneValueUrl=document.getElementById("inputOneUrl").value;
+        var typeTwoValueUrl=document.getElementById("inputTwoUrl").value;
+        var one=document.getElementById("one")
+         var two=document.getElementById("two")
+       console.log(typeOneValueUrl);
+        if(typeOneValue == 1){
+			one.innerHTML=" <img  id='oneImg'  alt='图片' />";
+            document.getElementById('oneImg').setAttribute("src",typeOneValueUrl);
+		}else{
+			one.innerHTML=" <video  controls='controls'><source id='oneVideo'  type='video/mp4'></video>"
+            document.getElementById('oneVideo').setAttribute("src",typeOneValueUrl);
+		}
+		 if(typeTwoValue == 1){
+			two.innerHTML=" <img  id='twoImg'  alt='图片' />";
+             document.getElementById('oneImg').setAttribute("src",typeTwoValueUrl);
+		}else{
+			two.innerHTML=" <video  controls='controls'><source id='twoVideo' type='video/mp4'></video>"
+             document.getElementById('twoVideo').setAttribute("src",typeTwoValueUrl);
+		}
+
+
+         function validateName(){
+             window.location.href = "http://localhost:8082/user/validateName";
+        }
+
+    </script>
+</body>
+</html>

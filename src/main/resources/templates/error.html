@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-spingsecurity4"
+	th:with="level1Menu='account',level2Menu='3'">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <title> - 错误信息</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+
+
+</head>
+
+<body class="signin">
+    Error:验证失败--------------<button onClick="backIndex();">返回首页</button>
+<script>
+    function backIndex(){
+       window.location.href = "http://localhost:8082/user/index?userId=1&menuId=1";
+    }
+
+</script>
+
+</body>
+</html>
