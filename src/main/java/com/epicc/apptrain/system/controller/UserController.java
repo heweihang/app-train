@@ -66,7 +66,7 @@ public class UserController {
 
 
 
-
+    //此方法暂时没用
     //修改账户密码
     @RequestMapping("/modifyTrainUser")
     @ResponseBody
